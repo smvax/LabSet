@@ -12,7 +12,7 @@ class BitField {
       sizeof(unsigned int) * 8;  // Evaluated at compile-time (32)
 
  public:
-  BitField(size_t size = 0);
+  explicit BitField(size_t size = 0);
   BitField(const BitField&);
   ~BitField();
 
