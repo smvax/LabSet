@@ -1,3 +1,3 @@
-create_executable_project(AllTests)
-target_link_libraries(AllTests gtest gtest_main)
-add_test(NAME AllTests COMMAND AllTests)
+create_executable_project(SetAndBFTests)
+target_link_libraries(SetAndBFTests gtest gtest_main)
+add_test(NAME SetAndBFTests COMMAND SetAndBFTests)
