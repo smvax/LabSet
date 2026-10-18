@@ -3,4 +3,4 @@
 #ifndef LIB_SET_SET_H_
 #define LIB_SET_SET_H_
 
-#endif
+#endif  // LIB_SET_SET_H_

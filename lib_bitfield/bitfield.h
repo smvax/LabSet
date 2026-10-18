@@ -3,4 +3,4 @@
 #ifndef LIB_BITFIELD_BITFIELD_H_
 #define LIB_BITFIELD_BITFIELD_H_
 
-#endif
+#endif  // LIB_BITFIELD_BITFIELD_H_
