@@ -31,7 +31,7 @@ class Set {
   Set& operator+=(const Set&);
   Set& operator-=(const Set&);
   Set& operator*=(const Set&);
-  Set operator-();  // Unary
+  Set operator-() const;  // Unary
   Set& operator=(const Set&);
   Set& operator=(Set&&) noexcept;
 };
