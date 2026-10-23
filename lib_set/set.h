@@ -13,8 +13,8 @@ class Set {
   Set(const Set&);  // NOT noexcept
   // Because internal class uses allocation
   Set(Set&&) noexcept;
-  Set(const BitField&);
-  Set(BitField&&) noexcept;
+  explicit Set(const BitField&);
+  explicit Set(BitField&&) noexcept;
 
   inline size_t max_power() const noexcept;
 
