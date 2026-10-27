@@ -24,6 +24,23 @@ TEST(BitFieldTest, can_create_with_copy_constructor) {
   EXPECT_EQ(bf1.get_bit(10), false);
 }
 
+TEST(BitFieldTest, can_create_with_move_constructor) {
+  size_t original_size = 10;
+  BitField source(original_size);
+  source.set_bit(5);
+  BitField destination(std::move(source));
+
+  EXPECT_EQ(destination.get_bit(5), true);
+  EXPECT_THROW(source.get_bit(0), std::out_of_range);
+  EXPECT_NO_THROW(destination.get_bit(40));
+}
+
+TEST(BitFieldTest, can_get_max_power) {
+  BitField bf1(3);
+
+  EXPECT_EQ(bf1.max_power(), 32 * 3);
+}
+
 TEST(BitFieldTest, can_assign) {
   BitField bf1(2);
   bf1.set_bit(38);

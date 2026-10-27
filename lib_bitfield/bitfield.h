@@ -15,8 +15,10 @@ class BitField {
   explicit BitField(size_t size = 0);
   BitField(const BitField&);  // NOT noexcept
   // Because uses allocation (new)
+  BitField(BitField&&) noexcept;
   ~BitField();
 
+  inline size_t max_power() const noexcept;
   inline size_t get_index(size_t) const;
   // ^ Bit position to its index of bitblock
   inline bool get_bit(size_t) const;
@@ -24,16 +26,20 @@ class BitField {
   inline void set_bit(size_t);    // Sets 1
   inline void reset_bit(size_t);  // Sets 0
 
-  BitField operator|(const BitField&);
-  BitField operator&(const BitField&);
-  BitField operator~();
+  BitField operator|(const BitField&) const;
+  BitField operator&(const BitField&) const;
+  BitField operator~() const;
   BitField& operator=(const BitField&);
+  BitField& operator=(BitField&&) noexcept;
 
  private:
   inline unsigned int get_mask(size_t) const noexcept;
   // ^ Mask of the bit in its bitblock
 };
 
+inline size_t BitField::max_power() const noexcept {
+  return _size * BITS_PER_BLOCK;  // May be << 5
+}
 inline size_t BitField::get_index(size_t pos) const {
   if (pos >= _size * BITS_PER_BLOCK) {
     throw std::out_of_range("ERROR: Position out of range!");
