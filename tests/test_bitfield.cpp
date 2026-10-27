@@ -1,12 +1,13 @@
 // Copyright 2024 Marina Usova
 
-#include "../lib_bitfield/bitfield.h"
 #include <gtest/gtest.h>
 
 #include <stdexcept>  // For exceptions
 #include <iostream>  // For ostream
 #include <algorithm>  // For max
 #include <utility>  // For move
+
+#include "../lib_bitfield/bitfield.h"
 
 TEST(BitFieldTest, can_create_with_default_constructor) {
   ASSERT_NO_THROW(BitField bf);
