@@ -4,7 +4,7 @@
 
 Set::Set(size_t max_power) : _bitfield((max_power + 31) / 32) {}
 Set::Set(std::initializer_list<int> list) :
-    _bitfield(list.size()==0 ? 0 : (std::max(list) + 31) / 32) {
+    _bitfield(list.size() == 0 ? 0 : (std::max(list) + 31) / 32) {
   for (int elem : list) {
     insert(elem);
   }
