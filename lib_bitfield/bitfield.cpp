@@ -2,6 +2,11 @@
 
 #include "../lib_bitfield/bitfield.h"
 
+#include <stdexcept>  // For exceptions
+#include <iostream>  // For ostream
+#include <algorithm>  // For max
+#include <utility>  // For move
+
 BitField::BitField(size_t size) : _size(size) {
   if (_size > 0) {
     _data = new unsigned int[_size]();  // Inits with zeros
