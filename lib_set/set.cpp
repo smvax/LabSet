@@ -1,11 +1,11 @@
 // Copyright 2024 Marina Usova
 
-#include "../lib_set/set.h"
-
 #include <stdexcept>  // For exceptions
 #include <iostream>  // For ostream
 #include <algorithm>  // For max
 #include <utility>  // For move
+
+#include "../lib_set/set.h"
 
 Set::Set(size_t max_power) : _bitfield((max_power + 31) / 32) {}
 Set::Set(std::initializer_list<int> list) :

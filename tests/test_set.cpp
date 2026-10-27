@@ -3,11 +3,6 @@
 #include <gtest/gtest.h>
 #include "../lib_set/set.h"
 
-#include <stdexcept>  // For exceptions
-#include <iostream>  // For ostream
-#include <algorithm>  // For max
-#include <utility>  // For move
-
 TEST(SetTest, can_create_with_constructor_by_max_power) {
   ASSERT_NO_THROW(Set s(100));
 }

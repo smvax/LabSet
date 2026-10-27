@@ -3,11 +3,6 @@
 #include <gtest/gtest.h>
 #include "../lib_bitfield/bitfield.h"
 
-#include <stdexcept>  // For exceptions
-#include <iostream>  // For ostream
-#include <algorithm>  // For max
-#include <utility>  // For move
-
 TEST(BitFieldTest, can_create_with_default_constructor) {
   ASSERT_NO_THROW(BitField bf);
 }

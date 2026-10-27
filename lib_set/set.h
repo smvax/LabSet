@@ -3,12 +3,12 @@
 #ifndef LIB_SET_SET_H_
 #define LIB_SET_SET_H_
 
-#include "../lib_bitfield/bitfield.h"
-
 #include <stdexcept>  // For exceptions
 #include <iostream>  // For ostream
 #include <algorithm>  // For max
 #include <utility>  // For move
+
+#include "../lib_bitfield/bitfield.h"
 
 class Set {
   BitField _bitfield;
