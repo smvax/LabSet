@@ -1,5 +1,10 @@
 // Copyright 2024 Marina Usova
 
+#include <stdexcept>  // For exceptions
+#include <iostream>  // For ostream
+#include <algorithm>  // For max
+#include <utility>  // For move
+
 #include <gtest/gtest.h>
 #include "../lib_bitfield/bitfield.h"
 
