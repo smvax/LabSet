@@ -3,7 +3,10 @@
 #ifndef LIB_BITFIELD_BITFIELD_H_
 #define LIB_BITFIELD_BITFIELD_H_
 
-#include <stdexcept>
+#include <stdexcept>  // For exceptions
+#include <iostream>  // For ostream
+#include <algorithm>  // For max
+#include <utility>  // For move
 
 class BitField {
   unsigned int* _data;

@@ -2,9 +2,6 @@
 
 #include "../lib_bitfield/bitfield.h"
 
-#include <algorithm>
-#include <stdexcept>
-
 BitField::BitField(size_t size) : _size(size) {
   if (_size > 0) {
     _data = new unsigned int[_size]();  // Inits with zeros
