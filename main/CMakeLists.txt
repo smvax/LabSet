@@ -1,1 +1,1 @@
-create_executable_project(SetApp)
+create_executable_project(EratosthenesApp)
