@@ -126,10 +126,27 @@ TEST(BitFieldTest, can_do_bitwise_not) {
   EXPECT_EQ(result.get_bit(1), true);
 }
 
-TEST(BitFieldTest, throws_when_bitwise_on_different_sizes) {
+TEST(BitFieldTest, can_do_bitwise_or_on_different_sizes) {
   BitField bf1(1);
   BitField bf2(2);
+  bf1.set_bit(10);
+  bf2.set_bit(45);
+  BitField result_or = bf1 | bf2;
 
-  EXPECT_THROW(bf1 | bf2, std::logic_error);
-  EXPECT_THROW(bf1 & bf2, std::logic_error);
+  EXPECT_EQ(result_or.max_power(), 64);
+  EXPECT_EQ(result_or.get_bit(10), true);
+  EXPECT_EQ(result_or.get_bit(45), true);
+}
+
+TEST(BitFieldTest, can_do_bitwise_and_on_different_sizes) {
+  BitField bf1(1);
+  BitField bf2(2);
+  bf1.set_bit(15);
+  bf2.set_bit(15);
+  bf2.set_bit(45);
+  BitField result_and = bf1 & bf2;
+
+  EXPECT_EQ(result_and.max_power(), 64);
+  EXPECT_EQ(result_and.get_bit(15), true);
+  EXPECT_EQ(result_and.get_bit(45), false);
 }

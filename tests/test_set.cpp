@@ -205,13 +205,29 @@ TEST(SetTest, can_do_unary_minus_as_negation) {
   EXPECT_EQ(bf_res.get_bit(31), true);
 }
 
-TEST(SetTest, throws_when_operations_on_different_sizes) {
-  Set s1(32);
-  Set s2(64);
+TEST(SetTest, can_do_operations_on_different_sizes) {
+  Set s1(10);
+  Set s2(50);
+  s1.insert(5);
+  s2.insert(5);
+  s2.insert(45);
+  Set res_plus = s1 + s2;
+  const BitField& bf_plus = static_cast<const BitField&>(res_plus);
 
-  EXPECT_THROW(s1 + s2, std::logic_error);
-  EXPECT_THROW(s1 * s2, std::logic_error);
-  EXPECT_THROW(s1 - s2, std::logic_error);
+  EXPECT_EQ(bf_plus.get_bit(4), true);
+  EXPECT_EQ(bf_plus.get_bit(44), true);
+
+  Set res_mult = s1 * s2;
+  const BitField& bf_mult = static_cast<const BitField&>(res_mult);
+
+  EXPECT_EQ(bf_mult.get_bit(4), true);
+  EXPECT_EQ(bf_mult.get_bit(44), false);
+
+  Set res_minus = s2 - s1;
+  const BitField& bf_minus = static_cast<const BitField&>(res_minus);
+
+  EXPECT_EQ(bf_minus.get_bit(4), false);
+  EXPECT_EQ(bf_minus.get_bit(44), true);
 }
 
 TEST(SetTest, can_output_normal_set_via_ostream_operator) {
@@ -228,4 +244,17 @@ TEST(SetTest, can_output_empty_set_via_ostream_operator) {
   ss << s;
 
   EXPECT_EQ(ss.str(), "{}");
+}
+
+TEST(SetTest, can_do_unary_minus) {
+  Set s(5);
+  s.insert(1);
+  s.insert(24);
+  Set result = -s;
+  std::stringstream ss;
+  ss << result;
+
+  EXPECT_EQ(ss.str(),
+            "{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, "
+            "20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32}");
 }

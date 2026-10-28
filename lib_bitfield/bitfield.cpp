@@ -33,21 +33,20 @@ BitField::BitField(BitField&& other) noexcept :
 BitField::~BitField() { delete[] _data; }
 
 BitField BitField::operator|(const BitField& other) const {
-  if (_size != other._size) {
-    throw std::logic_error("ERROR: BitFields must have the same size!");
-  }
-  BitField result(_size);
-  for (size_t i = 0; i < _size; ++i) {
-    result._data[i] = _data[i] | other._data[i];
+  size_t max_size = std::max(_size, other._size);
+  BitField result(max_size);
+  for (size_t i = 0; i < max_size; ++i) {
+    unsigned int a = (i < _size) ? _data[i] : 0u;
+    unsigned int b = (i < other._size) ? other._data[i] : 0u;
+    result._data[i] = a | b;
   }
   return result;
 }
 BitField BitField::operator&(const BitField& other) const {
-  if (_size != other._size) {
-    throw std::logic_error("ERROR: BitFields must have the same size!");
-  }
-  BitField result(_size);
-  for (size_t i = 0; i < _size; ++i) {
+  size_t min_size = std::min(_size, other._size);
+  size_t max_size = std::max(_size, other._size);
+  BitField result(max_size);
+  for (size_t i = 0; i < min_size; ++i) {
     result._data[i] = _data[i] & other._data[i];
   }
   return result;
