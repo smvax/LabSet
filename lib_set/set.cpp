@@ -53,8 +53,7 @@ Set& Set::operator-=(const Set& other) {
   BitField other_bf = static_cast<const BitField&>(other);
   if (other_bf.max_power() >= _bitfield.max_power()) {
     _bitfield = _bitfield & (~other_bf);
-  }
-  else {
+  } else {
     BitField aligned_other(_bitfield.max_power());
     for (size_t i = 0; i < other_bf.max_power(); ++i) {
       if (other_bf.get_bit(i)) {
