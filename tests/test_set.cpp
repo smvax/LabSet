@@ -266,7 +266,7 @@ TEST(SetTest, can_cin_normal_set) {
   Set s(0);
   ss >> s;
 
-  EXPECT_TRUE(s.max_power() >= 6);
+  EXPECT_GE(s.max_power(), 6);
 
   const BitField& bf = static_cast<const BitField&>(s);
 
