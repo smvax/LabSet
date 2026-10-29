@@ -103,3 +103,39 @@ std::ostream& operator<<(std::ostream& out, const Set& set) {
   out << "}";
   return out;
 }
+std::istream& operator>>(std::istream& in, Set& set) {
+  char ch;
+  if (!(in >> ch) || ch != '{') {
+    in.setstate(std::ios::failbit);
+    return in;
+  }
+  int max_elem = 0;
+  int elements[1000];
+  size_t count = 0;
+  while (in >> ch) {
+    if (ch == '}') {
+      break;
+    }
+    if (ch == ',') {
+      continue;
+    }
+    in.putback(ch);
+    int elem;
+    if (in >> elem) {
+      if (elem > max_elem) {
+        max_elem = elem;
+      }
+      if (count < 1000) {
+        elements[count++] = elem;
+      }
+    } else {
+      break;
+    }
+  }
+  Set temp(max_elem);
+  for (size_t i = 0; i < count; ++i) {
+    temp.insert(elements[i]);
+  }
+  set = std::move(temp);
+  return in;
+}

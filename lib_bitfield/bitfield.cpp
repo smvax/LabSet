@@ -82,3 +82,26 @@ BitField& BitField::operator=(BitField&& other) noexcept {
   }
   return *this;
 }
+
+std::ostream& operator<<(std::ostream& out, const BitField& bf) {
+  size_t total_bits = bf.max_power();
+  for (size_t i = 0; i < total_bits; ++i) {
+    out << (bf.get_bit(i) ? '1' : '0');
+  }
+  return out;
+}
+std::istream& operator>>(std::istream& in, BitField& bf) {
+  std::string s;
+  if (in >> s) {
+    size_t num_bits = s.length();
+    size_t num_blocks = (num_bits + 31) / 32;
+    BitField temp(num_blocks);
+    for (size_t i = 0; i < num_bits; ++i) {
+      if (s[i] == '1') {
+        temp.set_bit(i);
+      }
+    }
+    bf = std::move(temp);
+  }
+  return in;
+}

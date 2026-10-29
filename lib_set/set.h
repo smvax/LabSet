@@ -42,6 +42,7 @@ class Set {
   Set& operator=(Set&&) noexcept;
 
   friend std::ostream& operator<<(std::ostream&, const Set&);
+  friend std::istream& operator>>(std::istream&, Set&);
 };
 
 inline size_t Set::max_power() const noexcept { return _bitfield.max_power(); }

@@ -35,6 +35,9 @@ class BitField {
   BitField& operator=(const BitField&);
   BitField& operator=(BitField&&) noexcept;
 
+  friend std::ostream& operator<<(std::ostream&, const BitField&);
+  friend std::istream& operator>>(std::istream&, BitField&);
+
  private:
   inline unsigned int get_mask(size_t) const noexcept;
   // ^ Mask of the bit in its bitblock

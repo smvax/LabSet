@@ -230,22 +230,6 @@ TEST(SetTest, can_do_operations_on_different_sizes) {
   EXPECT_EQ(bf_minus.get_bit(44), true);
 }
 
-TEST(SetTest, can_output_normal_set_via_ostream_operator) {
-  Set s({2, 5, 7});
-  std::stringstream ss;
-  ss << s;
-
-  EXPECT_EQ(ss.str(), "{2, 5, 7}");
-}
-
-TEST(SetTest, can_output_empty_set_via_ostream_operator) {
-  Set s(10);
-  std::stringstream ss;
-  ss << s;
-
-  EXPECT_EQ(ss.str(), "{}");
-}
-
 TEST(SetTest, can_do_unary_minus) {
   Set s(5);
   s.insert(1);
@@ -257,4 +241,53 @@ TEST(SetTest, can_do_unary_minus) {
   EXPECT_EQ(ss.str(),
             "{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, "
             "20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32}");
+}
+
+TEST(SetTest, can_cout_normal_set) {
+  Set s({2, 5, 7});
+  std::stringstream ss;
+  ss << s;
+
+  EXPECT_EQ(ss.str(), "{2, 5, 7}");
+}
+
+TEST(SetTest, can_cout_empty_set) {
+  Set s(10);
+  std::stringstream ss;
+  ss << s;
+
+  EXPECT_EQ(ss.str(), "{}");
+}
+
+TEST(SetTest, can_cin_normal_set) {
+  std::string input_str = "{ 2, 3, 4, 6 }";
+  std::stringstream ss(input_str);
+  Set s(0);
+  ss >> s;
+
+  EXPECT_TRUE(s.max_power() >= 6);
+
+  const BitField& bf = static_cast<const BitField&>(s);
+
+  EXPECT_TRUE(bf.get_bit(1));
+  EXPECT_TRUE(bf.get_bit(2));
+  EXPECT_TRUE(bf.get_bit(3));
+  EXPECT_TRUE(bf.get_bit(5));
+  EXPECT_FALSE(bf.get_bit(0));
+  EXPECT_FALSE(bf.get_bit(4));
+}
+
+TEST(SetTest, can_cin_empty_set) {
+  std::string input_str = "{}";
+  std::stringstream ss(input_str);
+  Set s({1, 5, 10});
+  ss >> s;
+
+  EXPECT_TRUE(static_cast<bool>(ss));
+
+  const BitField& bf = static_cast<const BitField&>(s);
+
+  for (size_t i = 0; i < bf.max_power(); ++i) {
+    EXPECT_FALSE(bf.get_bit(i));
+  }
 }

@@ -150,3 +150,34 @@ TEST(BitFieldTest, can_do_bitwise_and_on_different_sizes) {
   EXPECT_EQ(result_and.get_bit(15), true);
   EXPECT_EQ(result_and.get_bit(45), false);
 }
+
+TEST(BitFieldTest, can_cout) {
+  BitField bf(2);
+  bf.set_bit(0);
+  bf.set_bit(2);
+  bf.set_bit(63);
+  std::stringstream ss;
+  ss << bf;
+  std::string expected(64, '0');
+  expected[0] = '1';
+  expected[2] = '1';
+  expected[63] = '1';
+
+  EXPECT_EQ(ss.str(), expected);
+}
+
+TEST(BitFieldTest, can_cin) {
+  std::string input_str = "01110101";
+  std::stringstream ss(input_str);
+  BitField bf(0);
+  ss >> bf;
+
+  EXPECT_FALSE(bf.get_bit(0));
+  EXPECT_TRUE(bf.get_bit(1));
+  EXPECT_TRUE(bf.get_bit(2));
+  EXPECT_TRUE(bf.get_bit(3));
+  EXPECT_FALSE(bf.get_bit(4));
+  EXPECT_TRUE(bf.get_bit(5));
+  EXPECT_FALSE(bf.get_bit(6));
+  EXPECT_TRUE(bf.get_bit(7));
+}
