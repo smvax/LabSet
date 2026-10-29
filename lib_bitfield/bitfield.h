@@ -7,6 +7,7 @@
 #include <iostream>  // For ostream
 #include <algorithm>  // For max
 #include <utility>  // For move
+#include <string>  // For string
 
 class BitField {
   unsigned int* _data;

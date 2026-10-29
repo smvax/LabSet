@@ -4,6 +4,7 @@
 #include <iostream>  // For ostream
 #include <algorithm>  // For max
 #include <utility>  // For move
+#include <string>  // For string
 
 #include "../lib_bitfield/bitfield.h"
 
