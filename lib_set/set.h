@@ -1,4 +1,4 @@
-// Copyright 2024 Marina Usova
+// Copyright 2026 smvax
 
 #ifndef LIB_SET_SET_H_
 #define LIB_SET_SET_H_
@@ -8,6 +8,7 @@
 #include <algorithm>  // For max
 #include <utility>  // For move
 #include <string>  // For string
+#include <vector>  // For vector
 
 #include "../lib_bitfield/bitfield.h"
 
@@ -24,6 +25,7 @@ class Set {
   explicit Set(BitField&&) noexcept;
 
   inline size_t max_power() const noexcept;
+  inline bool get_element(int) const;
 
   inline void insert(int);
   inline void erase(int);
@@ -46,13 +48,19 @@ class Set {
   friend std::istream& operator>>(std::istream&, Set&);
 };
 
-inline size_t Set::max_power() const noexcept { return _bitfield.max_power(); }
+inline size_t Set::max_power() const noexcept {
+    return _bitfield.get_length();
+}
+inline bool Set::get_element(int elem) const {
+  return _bitfield.get_bit(static_cast<size_t>(elem - 1));
+  // Throws in get_bit when elem is wrong
+}
 
 inline void Set::insert(int elem) {
   if (elem < 1) {
     throw std::invalid_argument("ERROR: Element must be a natural number!");
   }
-  // If element > max_power, BitField throws
+  // If eleme > max_power, BitField throws
   _bitfield.set_bit(elem - 1);
 }
 inline void Set::erase(int elem) {
@@ -62,7 +70,5 @@ inline void Set::erase(int elem) {
   // If element > max_power, BitField throws
   _bitfield.reset_bit(elem - 1);
 }
-
-std::ostream& operator<<(std::ostream&, const Set&);
 
 #endif  // LIB_SET_SET_H_

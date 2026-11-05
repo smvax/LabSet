@@ -1,4 +1,4 @@
-// Copyright 2024 Marina Usova
+// Copyright 2026 smvax
 
 #ifndef LIB_BITFIELD_BITFIELD_H_
 #define LIB_BITFIELD_BITFIELD_H_
@@ -8,21 +8,23 @@
 #include <algorithm>  // For max
 #include <utility>  // For move
 #include <string>  // For string
+#include <vector>  // For vector
 
 class BitField {
   unsigned int* _data;
-  size_t _size;  // Number of bitblocks
+  size_t _length;
   static constexpr size_t BITS_PER_BLOCK = sizeof(unsigned int) * 8;
   // ^ Evaluated at compile-time (32)
 
  public:
-  explicit BitField(size_t size = 0);
+  explicit BitField(size_t length = 0);
   BitField(const BitField&);  // NOT noexcept
   // Because uses allocation (new)
   BitField(BitField&&) noexcept;
   ~BitField();
 
-  inline size_t max_power() const noexcept;
+  inline size_t get_length() const noexcept;
+  inline size_t get_blocks_count() const noexcept;
   inline size_t get_index(size_t) const;
   // ^ Bit position to its index of bitblock
   inline bool get_bit(size_t) const;
@@ -44,11 +46,14 @@ class BitField {
   // ^ Mask of the bit in its bitblock
 };
 
-inline size_t BitField::max_power() const noexcept {
-  return _size * BITS_PER_BLOCK;  // May be << 5
+inline size_t BitField::get_length() const noexcept {
+    return _length;
+}
+inline size_t BitField::get_blocks_count() const noexcept {
+  return (_length + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK;
 }
 inline size_t BitField::get_index(size_t pos) const {
-  if (pos >= _size * BITS_PER_BLOCK) {
+  if (pos >= this->get_length()) {
     throw std::out_of_range("ERROR: Position out of range!");
   }
   return pos / BITS_PER_BLOCK;  // May be >> 5
