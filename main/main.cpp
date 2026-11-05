@@ -8,9 +8,8 @@
 
 void print_sieve_of_eratosthenes(size_t max_num) {
   if (max_num < 2) {
-    std::cout << "There are no prime numbers in \
-        this range (number must be >= 2)."
-              << std::endl;
+    std::cout << "There are no prime numbers in " <<
+        "this range(number must be >= 2)." << std::endl;
     return;
   }
   Set primes(max_num);
